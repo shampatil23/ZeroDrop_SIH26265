@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  --color-emerald-primary: #168568;
+  --color-emerald-hover: #116B53;
+  --color-emerald-pale: #E8F5EF;
+  --color-emerald-50: #f0fdf7;
+  --color-text-main: #202824;
+  --color-text-secondary: #68736D;
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F5F7F6;
+  --color-border: #E2E8E4;
+  --color-amber-warning: #E9A23B;
+  --color-red-critical: #D94848;
+  --color-info-grey: #748078;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-bg-secondary);
+    color: var(--color-text-main);
+    line-height: 1.5;
+    font-size: 14px;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c5cec8;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a0afa4;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-emerald-primary text-white px-4 py-2 rounded-xl font-medium text-sm
+    hover:bg-emerald-hover transition-all duration-200 inline-flex items-center gap-2
+    cursor-pointer border-none;
+  }
+  .btn-secondary {
+    @apply bg-white text-text-main px-4 py-2 rounded-xl font-medium text-sm
+    border border-border hover:bg-bg-secondary transition-all duration-200
+    inline-flex items-center gap-2 cursor-pointer;
+  }
+  .btn-danger {
+    @apply bg-red-critical text-white px-4 py-2 rounded-xl font-medium text-sm
+    hover:bg-red-700 transition-all duration-200 inline-flex items-center gap-2
+    cursor-pointer border-none;
+  }
+  .btn-ghost {
+    @apply bg-transparent text-text-secondary px-3 py-2 rounded-xl font-medium text-sm
+    hover:bg-bg-secondary transition-all duration-200 inline-flex items-center gap-2
+    cursor-pointer border-none;
+  }
+  .card {
+    @apply bg-white rounded-2xl border border-border p-5;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-success {
+    @apply bg-emerald-pale text-emerald-primary;
+  }
+  .badge-warning {
+    @apply bg-amber-50 text-amber-700;
+  }
+  .badge-danger {
+    @apply bg-red-50 text-red-critical;
+  }
+  .badge-info {
+    @apply bg-gray-100 text-info-grey;
+  }
+  .badge-pending {
+    @apply bg-blue-50 text-blue-700;
+  }
+  .input-field {
+    @apply w-full px-3 py-2 rounded-xl border border-border text-sm text-text-main
+    bg-white placeholder:text-text-secondary/60 focus:outline-none focus:ring-2
+    focus:ring-emerald-primary/20 focus:border-emerald-primary transition-all duration-200;
+  }
+  .select-field {
+    @apply w-full px-3 py-2 rounded-xl border border-border text-sm text-text-main
+    bg-white focus:outline-none focus:ring-2 focus:ring-emerald-primary/20
+    focus:border-emerald-primary transition-all duration-200 appearance-none cursor-pointer;
+  }
+  .table-container {
+    @apply w-full overflow-x-auto;
+  }
+  .data-table {
+    @apply w-full text-sm;
+  }
+  .data-table thead {
+    @apply bg-bg-secondary;
+  }
+  .data-table th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider;
+  }
+  .data-table td {
+    @apply px-4 py-3 text-sm text-text-main border-t border-border;
+  }
+  .data-table tbody tr {
+    @apply hover:bg-bg-secondary/50 transition-colors duration-150 cursor-pointer;
+  }
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
+  .page-header {
+    @apply mb-6;
+  }
+  .page-title {
+    @apply text-xl font-semibold text-text-main;
+  }
+  .page-subtitle {
+    @apply text-sm text-text-secondary mt-1;
+  }
+}
+
+/* Sidebar transitions */
+.sidebar-label {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Tooltip for collapsed sidebar */
+.sidebar-tooltip {
+  @apply absolute left-full ml-3 px-2 py-1 bg-text-main text-white text-xs rounded-lg
+  whitespace-nowrap opacity-0 pointer-events-none z-50;
+  transition: opacity 0.15s ease;
+}
+.sidebar-item:hover .sidebar-tooltip {
+  opacity: 1;
+}
+
+/* Mobile drawer backdrop */
+.drawer-backdrop {
+  @apply fixed inset-0 bg-black/40 z-40;
+}
+
+/* Toast overrides */
+.toast-custom {
+  @apply rounded-xl border border-border shadow-lg;
+}
+
+/* Chart containers */
+.chart-wrapper {
+  @apply w-full h-full;
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--color-emerald-primary);
+  outline-offset: 2px;
+}
+
+/* Animation helpers */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+/* Print */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
