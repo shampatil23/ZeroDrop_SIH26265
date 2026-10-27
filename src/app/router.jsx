@@ -1,5 +1,5 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
 import LandingPage from '../pages/LandingPage';
 import DocumentationPage from '../pages/DocumentationPage';
@@ -16,7 +16,7 @@ import ReportsPage from '../pages/ReportsPage';
 import AuditTrailPage from '../pages/AuditTrailPage';
 import SettingsPage from '../pages/SettingsPage';
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   // Public High-Impact Landing Page (Matching Image 1)
   {
     path: '/',
@@ -56,5 +56,11 @@ export const router = createBrowserRouter([
       { path: '/audit', element: <AuditTrailPage /> },
       { path: '/settings', element: <SettingsPage /> },
     ],
+  },
+
+  // Fallback Catch-All Route (Prevents 404s on any unknown URL)
+  {
+    path: '*',
+    element: <Navigate to="/" replace />,
   },
 ]);

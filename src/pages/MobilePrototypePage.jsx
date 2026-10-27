@@ -71,7 +71,7 @@ export default function MobilePrototypePage() {
       {/* Main Viewport containing the Virtual Device Simulator */}
       <main className="flex-1 flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
         <div className="w-full max-w-5xl">
-          <VirtualDeviceSimulator initialUrl="/overview" />
+          <VirtualDeviceSimulator initialUrl="#/overview" />
         </div>
       </main>
     </div>

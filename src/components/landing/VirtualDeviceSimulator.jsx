@@ -15,7 +15,7 @@ import {
   Compass,
 } from 'lucide-react';
 
-export default function VirtualDeviceSimulator({ initialUrl = '/overview' }) {
+export default function VirtualDeviceSimulator({ initialUrl = '#/overview' }) {
   const [deviceType, setDeviceType] = useState('iphone'); // 'iphone' | 'pixel' | 'tablet'
   const [orientation, setOrientation] = useState('portrait'); // 'portrait' | 'landscape'
   const [currentUrl, setCurrentUrl] = useState(initialUrl);
@@ -43,11 +43,11 @@ export default function VirtualDeviceSimulator({ initialUrl = '/overview' }) {
   const dim = getDeviceDimensions();
 
   const quickLinks = [
-    { label: 'Overview', path: '/overview', icon: Home },
-    { label: 'Repository', path: '/fdr-repository', icon: FolderOpen },
-    { label: 'Verification', path: '/verification', icon: FileCheck },
-    { label: 'Approvals', path: '/approvals', icon: ClipboardCheck },
-    { label: 'Renewals', path: '/renewals', icon: RefreshCw },
+    { label: 'Overview', path: '#/overview', icon: Home },
+    { label: 'Repository', path: '#/fdr-repository', icon: FolderOpen },
+    { label: 'Verification', path: '#/verification', icon: FileCheck },
+    { label: 'Approvals', path: '#/approvals', icon: ClipboardCheck },
+    { label: 'Renewals', path: '#/renewals', icon: RefreshCw },
   ];
 
   return (
