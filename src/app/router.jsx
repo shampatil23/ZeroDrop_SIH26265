@@ -2,6 +2,8 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import AppShell from '../components/layout/AppShell';
 import LandingPage from '../pages/LandingPage';
+import DocumentationPage from '../pages/DocumentationPage';
+import MobilePrototypePage from '../pages/MobilePrototypePage';
 import DashboardPage from '../pages/DashboardPage';
 import FdrRepositoryPage from '../pages/FdrRepositoryPage';
 import FdrFormPage from '../pages/FdrFormPage';
@@ -15,7 +17,7 @@ import AuditTrailPage from '../pages/AuditTrailPage';
 import SettingsPage from '../pages/SettingsPage';
 
 export const router = createBrowserRouter([
-  // Public Landing Page with Access Web App & Mobile Device Simulator
+  // Public High-Impact Landing Page (Matching Image 1)
   {
     path: '/',
     element: <LandingPage />,
@@ -25,7 +27,19 @@ export const router = createBrowserRouter([
     element: <LandingPage />,
   },
 
-  // Main Application Shell & Regulatory Portal
+  // Dedicated Documentation Page (Matching Image 2)
+  {
+    path: '/docs',
+    element: <DocumentationPage />,
+  },
+
+  // Dedicated Mobile App Prototype View (Virtual Hardware Bezel Sandbox)
+  {
+    path: '/mobile',
+    element: <MobilePrototypePage />,
+  },
+
+  // Main Desktop Regulatory Management Application Shell
   {
     element: <AppShell />,
     children: [

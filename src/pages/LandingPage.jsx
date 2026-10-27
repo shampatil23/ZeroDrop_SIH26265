@@ -1,390 +1,334 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   ShieldCheck,
-  ArrowRight,
   Smartphone,
-  Monitor,
+  Globe,
   BookOpen,
-  CheckCircle2,
-  Lock,
-  Layers,
+  Download,
+  ExternalLink,
   Sparkles,
   RefreshCw,
   Coins,
   FileCheck2,
-  ExternalLink,
-  ChevronRight,
-  Building2,
+  Lock,
+  ArrowRight,
+  Layers,
   Scale,
+  CheckCircle2,
 } from 'lucide-react';
-import VirtualDeviceSimulator from '../components/landing/VirtualDeviceSimulator';
-import DocumentationSection from '../components/landing/DocumentationSection';
 import { animatePageEntrance } from '../animations/gsapConfig';
+import toast from 'react-hot-toast';
 
 export default function LandingPage() {
-  const navigate = useNavigate();
   const pageRef = useRef(null);
-  const [viewMode, setViewMode] = useState('web'); // 'web' | 'mobile'
 
   useEffect(() => {
     animatePageEntrance(pageRef);
   }, []);
 
-  const scrollToDocs = () => {
-    document.getElementById('documentation')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToSimulator = () => {
-    setViewMode('mobile');
-    setTimeout(() => {
-      document.getElementById('device-simulator')?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+  const handleDownload = () => {
+    toast.success('Zero Drop Regulatory Architecture Package (.zip) downloaded');
   };
 
   return (
-    <div ref={pageRef} className="min-h-screen bg-bg-secondary text-text-main flex flex-col font-sans">
-      {/* Top Public Header */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
-          {/* Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-emerald-primary rounded-xl flex items-center justify-center shrink-0 shadow-sm">
-              <ShieldCheck size={20} className="text-white" />
+    <div
+      ref={pageRef}
+      className="min-h-screen bg-[#0C1318] text-white flex flex-col font-sans selection:bg-emerald-500 selection:text-black overflow-x-hidden"
+    >
+      {/* Background Glow Accents */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[450px] bg-emerald-600/10 blur-[130px] pointer-events-none rounded-full" />
+      <div className="absolute top-48 left-1/4 w-[350px] h-[350px] bg-teal-500/10 blur-[100px] pointer-events-none rounded-full" />
+
+      {/* Top Navbar matching Image 1 */}
+      <header className="relative z-50 max-w-7xl w-full mx-auto px-4 sm:px-6 h-20 flex items-center justify-between gap-4">
+        {/* Brand */}
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+            </svg>
+          </div>
+          <div>
+            <div className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5 leading-none">
+              <span>Zero</span>
+              <span className="text-emerald-400">Drop</span>
             </div>
-            <div>
-              <div className="font-bold text-sm text-text-main leading-tight">Zero Drop</div>
-              <div className="text-[10px] text-text-secondary leading-tight">AICTE Security Deposit & FDR Portal</div>
+            <div className="text-[10px] text-slate-400 tracking-wider uppercase font-semibold leading-none mt-1">
+              AICTE FDR & Security Deposit Platform
             </div>
           </div>
+        </Link>
 
-          {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs font-medium text-text-secondary">
-            <a href="#features" className="hover:text-emerald-primary transition-colors">Features</a>
-            <a href="#simulator" onClick={scrollToSimulator} className="hover:text-emerald-primary transition-colors">
-              Mobile Simulator
-            </a>
-            <button onClick={scrollToDocs} className="hover:text-emerald-primary transition-colors cursor-pointer">
-              Documentation
-            </button>
-            <span className="text-border">|</span>
-            <span className="text-emerald-primary bg-emerald-pale px-2.5 py-0.5 rounded-full text-[11px] font-semibold border border-emerald-primary/20">
-              SIH 2026 • SIH26265
-            </span>
-          </nav>
+        {/* Action Buttons in Header matching Image 1 */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          {/* Documentation Button */}
+          <Link
+            to="/docs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/70 transition-all flex items-center gap-1.5"
+          >
+            <BookOpen size={14} className="text-slate-400" />
+            <span className="hidden sm:inline">Documentation</span>
+          </Link>
 
-          {/* Action CTAs */}
-          <div className="flex items-center gap-2.5">
-            <button
-              onClick={() => {
-                setViewMode('mobile');
-                scrollToSimulator();
-              }}
-              className="btn-secondary text-xs hidden sm:inline-flex"
-            >
-              <Smartphone size={14} />
-              <span>Mobile View</span>
-            </button>
+          {/* View WebView Prototype */}
+          <Link
+            to="/overview"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/70 transition-all flex items-center gap-1.5"
+          >
+            <Globe size={14} className="text-emerald-400" />
+            <span className="hidden md:inline">View WebView Prototype</span>
+            <span className="md:hidden">Web View</span>
+          </Link>
 
-            <button
-              onClick={() => navigate('/overview')}
-              className="btn-primary text-xs"
-            >
-              <span>Access Web App</span>
-              <ArrowRight size={14} />
-            </button>
-          </div>
+          {/* View Mobile App Prototype */}
+          <Link
+            to="/mobile"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/70 transition-all flex items-center gap-1.5"
+          >
+            <Smartphone size={14} className="text-emerald-400" />
+            <span className="hidden md:inline">View Mobile App Prototype</span>
+            <span className="md:hidden">Mobile</span>
+          </Link>
+
+          {/* Download APK / Package Button */}
+          <button
+            onClick={handleDownload}
+            className="px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 transition-all shadow-lg shadow-emerald-500/25 flex items-center gap-1.5 cursor-pointer"
+          >
+            <Download size={14} />
+            <span className="hidden sm:inline">Download APK</span>
+          </button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative pt-12 pb-16 px-4 sm:px-6 overflow-hidden">
-        <div className="max-w-5xl mx-auto text-center space-y-6">
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border shadow-xs text-xs font-medium text-text-secondary">
-            <span className="w-2 h-2 rounded-full bg-emerald-primary animate-pulse" />
-            <strong className="text-text-main">Smart India Hackathon 2026</strong> • Problem Statement SIH26265
+      {/* Hero Section matching Image 1 */}
+      <section className="relative z-10 flex-1 flex flex-col items-center justify-center text-center px-4 sm:px-6 pt-10 pb-16">
+        <div className="max-w-4xl mx-auto space-y-6">
+          {/* Pill Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/80 border border-emerald-500/30 text-xs font-semibold text-emerald-400 shadow-sm backdrop-blur-md">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>AI-Powered Security Deposit & FDR Management Platform</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-text-main tracking-tight leading-tight">
-            Streamlining AICTE Security Deposit & <br />
-            <span className="text-emerald-primary">Fixed Deposit Receipt (FDR) Management</span>
+          {/* Huge Main Headline */}
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.1]">
+            Streamline Security Deposits with <br />
+            <span className="bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 bg-clip-text text-transparent">
+              ZeroDrop AI
+            </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="max-w-3xl mx-auto text-sm sm:text-base text-text-secondary leading-relaxed">
-            Replace manual spreadsheets and physical bank correspondence with an enterprise regulatory portal.
-            Automated OCR verification, proactive maturity notifications, cryptographic rollover lineage, and
-            transparent maker-checker sign-offs.
+          <p className="max-w-2xl mx-auto text-sm sm:text-base text-slate-300/90 leading-relaxed font-normal">
+            Real-time FDR lifecycle monitoring, automated dual-pass OCR document verification, and proactive
+            maturity tracking. Get advance alerts 30–90 days before maturity occurs.
           </p>
 
-          {/* View Mode Switcher Toggle */}
-          <div className="pt-2 flex items-center justify-center">
-            <div className="inline-flex p-1 bg-white border border-border rounded-2xl shadow-xs">
-              <button
-                onClick={() => setViewMode('web')}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer ${
-                  viewMode === 'web'
-                    ? 'bg-emerald-primary text-white shadow-xs'
-                    : 'text-text-secondary hover:text-text-main'
-                }`}
-              >
-                <Monitor size={15} />
-                <span>Access Web App (Desktop Portal)</span>
-              </button>
-
-              <button
-                onClick={() => setViewMode('mobile')}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer ${
-                  viewMode === 'mobile'
-                    ? 'bg-emerald-primary text-white shadow-xs'
-                    : 'text-text-secondary hover:text-text-main'
-                }`}
-              >
-                <Smartphone size={15} />
-                <span>Interactive Mobile Device View</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Hero CTAs */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <button
-              onClick={() => navigate('/overview')}
-              className="btn-primary px-6 py-3 text-sm shadow-md hover:shadow-lg"
+          {/* 3 Call to Action Buttons matching Image 1 */}
+          <div className="flex flex-wrap items-center justify-center gap-3.5 pt-4">
+            {/* View Mobile App Prototype (Glowing Primary Button) */}
+            <Link
+              to="/mobile"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-sm flex items-center gap-2 transition-all shadow-xl shadow-emerald-500/30 hover:shadow-emerald-500/40 hover:scale-[1.02]"
             >
-              <span>Launch Live Portal</span>
-              <ArrowRight size={16} />
-            </button>
+              <Smartphone size={17} />
+              <span>View Mobile App Prototype</span>
+            </Link>
 
-            <button
-              onClick={scrollToDocs}
-              className="btn-secondary px-5 py-3 text-sm"
+            {/* View WebView Prototype */}
+            <Link
+              to="/overview"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-sm border border-slate-700/80 hover:border-slate-600 transition-all flex items-center gap-2"
             >
-              <BookOpen size={16} />
-              <span>Read Architecture Documentation</span>
-            </button>
+              <Globe size={17} className="text-emerald-400" />
+              <span>View WebView Prototype</span>
+            </Link>
+
+            {/* Documentation (in new tab) */}
+            <Link
+              to="/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3.5 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-sm border border-slate-700/80 hover:border-slate-600 transition-all flex items-center gap-2"
+            >
+              <BookOpen size={17} className="text-slate-400" />
+              <span>Documentation</span>
+              <ExternalLink size={13} className="text-slate-400" />
+            </Link>
           </div>
         </div>
 
-        {/* Dynamic Display: Web Portal Preview vs Virtual Mobile Device Simulator */}
-        <div id="device-simulator" className="max-w-6xl mx-auto mt-12 transition-all duration-300">
-          {viewMode === 'web' ? (
-            /* Desktop Web App Preview Banner */
-            <div className="relative rounded-3xl border border-border bg-white shadow-xl overflow-hidden p-6 sm:p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-border/60">
-                <div className="space-y-1 text-left">
-                  <span className="text-xs font-bold text-emerald-primary uppercase tracking-wider">
-                    Full Web Enterprise Interface
-                  </span>
-                  <h3 className="text-xl font-bold text-text-main">
-                    Production Regulatory Management Suite
-                  </h3>
-                  <p className="text-xs text-text-secondary max-w-xl">
-                    Experience the complete portal featuring all 11 modules: Overview Dashboard, FDR Repository,
-                    OCR Document Verification, Renewals & Lineage Tracking, Approval Queue, and Analytics.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 shrink-0">
-                  <button
-                    onClick={() => setViewMode('mobile')}
-                    className="btn-secondary text-xs"
-                  >
-                    <Smartphone size={15} />
-                    <span>Switch to Mobile View</span>
-                  </button>
-                  <button
-                    onClick={() => navigate('/overview')}
-                    className="btn-primary text-xs"
-                  >
-                    <span>Enter Live Portal</span>
-                    <ExternalLink size={14} />
-                  </button>
+        {/* Hero Graphic: Dual Device Showcase Preview */}
+        <div className="w-full max-w-5xl mx-auto mt-12 relative">
+          <div className="relative rounded-3xl p-1 bg-gradient-to-b from-slate-700/50 via-slate-800/30 to-transparent shadow-2xl">
+            <div className="rounded-[22px] bg-slate-950/80 backdrop-blur-xl border border-slate-800 p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8">
+              {/* Left text */}
+              <div className="text-left space-y-2 max-w-md">
+                <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest block">
+                  Enterprise Financial Operations
+                </span>
+                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                  Live Regulatory Dashboard & Mobile Bezel Sandbox
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Both responsive web and mobile app interfaces are fully running live. Click any prototype button above
+                  to open the respective experience in a dedicated new tab.
+                </p>
+                <div className="pt-2 flex items-center gap-3 text-xs text-slate-300">
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 size={14} className="text-emerald-400" />
+                    <span>SIH Problem ID: SIH26265</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle2 size={14} className="text-emerald-400" />
+                    <span>Pure White & Emerald Design</span>
+                  </div>
                 </div>
               </div>
 
-              {/* Quick Feature Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6 text-left">
-                <div
-                  onClick={() => navigate('/overview')}
-                  className="p-4 rounded-2xl bg-bg-secondary/60 hover:bg-emerald-50/30 border border-border/80 transition-all cursor-pointer group"
+              {/* Right Mockup Previews */}
+              <div className="flex items-center gap-4 shrink-0">
+                {/* Desktop Mockup Preview Card */}
+                <Link
+                  to="/overview"
+                  target="_blank"
+                  className="group relative w-48 sm:w-56 p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all text-left shadow-lg"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-white border border-border flex items-center justify-center text-emerald-primary mb-2 shadow-2xs">
-                    <Coins size={16} />
+                  <div className="h-28 rounded-xl bg-slate-800/80 border border-slate-700/60 p-2 flex flex-col justify-between overflow-hidden">
+                    <div className="flex items-center gap-1">
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                      <span className="text-[8px] text-slate-400 ml-1 font-mono">Overview Dashboard</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1 my-auto">
+                      <div className="h-6 rounded bg-slate-700/60" />
+                      <div className="h-6 rounded bg-emerald-950/60 border border-emerald-500/30" />
+                    </div>
+                    <div className="h-4 rounded bg-slate-700/40" />
                   </div>
-                  <h4 className="text-xs font-bold text-text-main group-hover:text-emerald-primary">
-                    Portfolio & Lien Dashboard
-                  </h4>
-                  <p className="text-[11px] text-text-secondary mt-1">
-                    Live tracking of ₹100M+ active technical education deposit receipts under AICTE lien.
-                  </p>
-                </div>
+                  <div className="mt-2 flex items-center justify-between text-xs font-semibold text-slate-200 group-hover:text-emerald-400">
+                    <span>Web Portal</span>
+                    <ExternalLink size={12} />
+                  </div>
+                </Link>
 
-                <div
-                  onClick={() => navigate('/verification')}
-                  className="p-4 rounded-2xl bg-bg-secondary/60 hover:bg-emerald-50/30 border border-border/80 transition-all cursor-pointer group"
+                {/* Mobile Mockup Preview Card */}
+                <Link
+                  to="/mobile"
+                  target="_blank"
+                  className="group relative w-32 sm:w-36 p-3 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all text-left shadow-lg"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-white border border-border flex items-center justify-center text-emerald-primary mb-2 shadow-2xs">
-                    <Sparkles size={16} />
+                  <div className="h-28 rounded-xl bg-slate-800/80 border border-slate-700/60 p-1.5 flex flex-col items-center justify-between overflow-hidden">
+                    <div className="w-6 h-1 rounded-full bg-slate-700" />
+                    <div className="w-full space-y-1">
+                      <div className="h-4 rounded bg-emerald-500/20 border border-emerald-500/40" />
+                      <div className="h-3 rounded bg-slate-700/60" />
+                      <div className="h-3 rounded bg-slate-700/40" />
+                    </div>
+                    <div className="w-8 h-0.5 rounded-full bg-slate-600" />
                   </div>
-                  <h4 className="text-xs font-bold text-text-main group-hover:text-emerald-primary">
-                    Dual-Pass OCR Engine
-                  </h4>
-                  <p className="text-[11px] text-text-secondary mt-1">
-                    Automated certificate verification cross-checked against submitted form parameters.
-                  </p>
-                </div>
-
-                <div
-                  onClick={() => navigate('/renewals')}
-                  className="p-4 rounded-2xl bg-bg-secondary/60 hover:bg-emerald-50/30 border border-border/80 transition-all cursor-pointer group"
-                >
-                  <div className="w-8 h-8 rounded-xl bg-white border border-border flex items-center justify-center text-emerald-primary mb-2 shadow-2xs">
-                    <RefreshCw size={16} />
+                  <div className="mt-2 flex items-center justify-between text-xs font-semibold text-slate-200 group-hover:text-emerald-400">
+                    <span>Mobile App</span>
+                    <ExternalLink size={12} />
                   </div>
-                  <h4 className="text-xs font-bold text-text-main group-hover:text-emerald-primary">
-                    Lineage Rollover Chaining
-                  </h4>
-                  <p className="text-[11px] text-text-secondary mt-1">
-                    Deterministic instrument rollover tracking connecting original deposits to replacements.
-                  </p>
-                </div>
-
-                <div
-                  onClick={() => navigate('/approvals')}
-                  className="p-4 rounded-2xl bg-bg-secondary/60 hover:bg-emerald-50/30 border border-border/80 transition-all cursor-pointer group"
-                >
-                  <div className="w-8 h-8 rounded-xl bg-white border border-border flex items-center justify-center text-emerald-primary mb-2 shadow-2xs">
-                    <Lock size={16} />
-                  </div>
-                  <h4 className="text-xs font-bold text-text-main group-hover:text-emerald-primary">
-                    FIDO2 & Cryptographic Audit
-                  </h4>
-                  <p className="text-[11px] text-text-secondary mt-1">
-                    Maker-checker approvals backed by an immutable, append-only sequential ledger.
-                  </p>
-                </div>
+                </Link>
               </div>
             </div>
-          ) : (
-            /* Virtual Mobile Device Simulator */
-            <div className="space-y-4">
-              <div className="flex items-center justify-between px-2">
-                <div>
-                  <span className="text-xs font-bold text-emerald-primary uppercase tracking-wider">
-                    Interactive Virtual Device Frame
-                  </span>
-                  <h3 className="text-lg font-bold text-text-main">
-                    Live Mobile Application Simulation
-                  </h3>
-                </div>
-                <button
-                  onClick={() => setViewMode('web')}
-                  className="btn-secondary text-xs"
-                >
-                  <Monitor size={14} /> Switch to Desktop View
-                </button>
-              </div>
-
-              <VirtualDeviceSimulator initialUrl="/overview" />
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
-      {/* Feature Highlights Section */}
-      <section id="features" className="py-16 px-4 sm:px-6 bg-white border-y border-border">
-        <div className="max-w-5xl mx-auto space-y-12">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-emerald-primary uppercase tracking-wider">
-              Smart Automation Pillars
+      {/* Feature Pillars */}
+      <section className="relative z-10 py-16 px-4 sm:px-6 border-t border-slate-800 bg-slate-950/60">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto space-y-2 mb-12">
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest">
+              Core Technical Features
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-text-main">
-              Built Specifically for AICTE Regulatory Operations
+            <h2 className="text-2xl sm:text-3xl font-bold text-white">
+              Solving Problem Statement SIH26265
             </h2>
-            <p className="text-xs sm:text-sm text-text-secondary">
-              Addressing every operational bottleneck identified in Smart India Hackathon problem statement SIH26265.
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl border border-border bg-bg-secondary/30 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-pale text-emerald-primary flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
                 <Sparkles size={20} />
               </div>
-              <h3 className="text-sm font-bold text-text-main">Simulated OCR Document Verification</h3>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Extracts certificate data automatically, calculates confidence scores, and flags discrepancies
-                between form inputs and bank documents before officer sign-off.
+              <h3 className="text-base font-bold text-white">Automated OCR Verification</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Simulated dual-pass optical character recognition extracts FDR reference, bank name, principal deposit,
+                and maturity date, cross-checking submitted values to detect discrepancy risks automatically.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-border bg-bg-secondary/30 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
                 <RefreshCw size={20} />
               </div>
-              <h3 className="text-sm font-bold text-text-main">Proactive Maturity Radar</h3>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Categorizes deposits into 7-day (Critical), 30-day (Upcoming), and 90-day warning buckets, preventing
-                unintentional maturity and expired joint liens.
+              <h3 className="text-base font-bold text-white">Proactive 60/30/7-Day Radar</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Prevents lapsed AICTE joint liens by automatically triaging fixed deposits into healthy, upcoming,
+                urgent, and overdue categories with automated multi-channel reminder dispatch.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl border border-border bg-bg-secondary/30 space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center">
+            <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+              <div className="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center border border-teal-500/20">
                 <Scale size={20} />
               </div>
-              <h3 className="text-sm font-bold text-text-main">Authorized Release & Refunds</h3>
-              <p className="text-xs text-text-secondary leading-relaxed">
-                Multi-stage regulatory workflow for discharging AICTE liens with complete No-Dues validation and
-                formal confirmation checkpoints.
+              <h3 className="text-base font-bold text-white">Cryptographic Lineage Tracking</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Maintains an unbroken audit chain connecting original deposit receipts to replacement FDRs, ensuring
+                continuous regulatory compliance without manual spreadsheet cross-referencing.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Comprehensive Technical Documentation Section */}
-      <DocumentationSection />
-
       {/* Footer */}
-      <footer className="mt-auto bg-slate-900 text-slate-400 py-12 px-4 sm:px-6 border-t border-slate-800 text-xs">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center text-white font-bold">
-              ZD
-            </div>
-            <div>
-              <div className="text-white font-semibold">Zero Drop — AICTE FDR Portal</div>
-              <div className="text-[11px] text-slate-500">Smart India Hackathon 2026 • Problem ID: SIH26265</div>
-            </div>
+      <footer className="relative z-10 bg-black/80 border-t border-slate-900 py-8 px-4 sm:px-6 text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-slate-400">
+            <span className="font-bold text-white">Zero Drop</span>
+            <span>•</span>
+            <span>Smart India Hackathon 2026</span>
+            <span>•</span>
+            <span className="text-emerald-400 font-mono">SIH26265</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <button onClick={() => navigate('/overview')} className="text-slate-300 hover:text-white transition-colors">
-              Access Web App
-            </button>
-            <button onClick={scrollToSimulator} className="text-slate-300 hover:text-white transition-colors">
-              Mobile Simulator
-            </button>
-            <button onClick={scrollToDocs} className="text-slate-300 hover:text-white transition-colors">
+            <Link to="/overview" target="_blank" className="hover:text-white transition-colors">
+              Web Portal
+            </Link>
+            <Link to="/mobile" target="_blank" className="hover:text-white transition-colors">
+              Mobile App Prototype
+            </Link>
+            <Link to="/docs" target="_blank" className="hover:text-white transition-colors">
               Documentation
-            </button>
+            </Link>
             <a
               href="https://github.com/shampatil23/ZeroDrop_SIH26265"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-medium"
+              className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-semibold"
             >
-              GitHub Repository <ExternalLink size={12} />
+              GitHub <ExternalLink size={12} />
             </a>
           </div>
-        </div>
-
-        <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-slate-800 text-center text-[11px] text-slate-500">
-          Designed and built for AICTE Financial Regulatory Operations • Prototype Demonstration Build
         </div>
       </footer>
     </div>
