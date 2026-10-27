@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   FolderOpen,
@@ -14,12 +14,13 @@ import {
   ChevronLeft,
   ChevronRight,
   ShieldCheck,
+  Globe,
   X,
 } from 'lucide-react';
 import { gsap } from 'gsap';
 
 const navItems = [
-  { path: '/', label: 'Overview', icon: LayoutDashboard },
+  { path: '/overview', label: 'Overview', icon: LayoutDashboard },
   { path: '/fdr-repository', label: 'FDR Repository', icon: FolderOpen },
   { path: '/institutions', label: 'Institutions', icon: Building2 },
   { path: '/verification', label: 'Document Verification', icon: FileCheck },
@@ -79,7 +80,10 @@ export default function Sidebar({ expanded, setExpanded, isMobile, mobileOpen, s
         style={isMobile ? { transform: 'translateX(-100%)' } : { width: expanded ? 260 : 72 }}
       >
         {/* Brand */}
-        <div className="flex items-center gap-3 px-4 h-16 border-b border-border shrink-0">
+        <Link
+          to="/overview"
+          className="flex items-center gap-3 px-4 h-16 border-b border-border shrink-0 hover:bg-bg-secondary/40 transition-colors"
+        >
           <div className="w-9 h-9 bg-emerald-primary rounded-xl flex items-center justify-center shrink-0">
             <ShieldCheck size={20} className="text-white" />
           </div>
@@ -93,20 +97,44 @@ export default function Sidebar({ expanded, setExpanded, isMobile, mobileOpen, s
           </div>
           {isMobile && (
             <button
-              onClick={() => setMobileOpen(false)}
+              onClick={(e) => {
+                e.preventDefault();
+                setMobileOpen(false);
+              }}
               className="ml-auto p-1 rounded-lg hover:bg-bg-secondary"
               aria-label="Close sidebar"
             >
               <X size={18} />
             </button>
           )}
+        </Link>
+
+        {/* Link back to Public Landing & Docs */}
+        <div className="px-2 pt-2 pb-1">
+          <Link
+            to="/"
+            onClick={handleNavClick}
+            className={`flex items-center gap-3 px-3 py-2 rounded-xl text-xs font-semibold text-emerald-primary bg-emerald-pale/60 hover:bg-emerald-pale transition-colors border border-emerald-primary/20 ${
+              !expanded && !isMobile ? 'justify-center px-0' : ''
+            }`}
+            title="Return to Public Landing Page & Docs"
+          >
+            <Globe size={16} className="shrink-0" />
+            <span
+              className={`whitespace-nowrap overflow-hidden transition-all duration-200 ${
+                expanded || isMobile ? 'opacity-100 w-auto' : 'opacity-0 w-0'
+              }`}
+            >
+              Landing & Docs
+            </span>
+          </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 py-3 overflow-y-auto overflow-x-hidden">
+        <nav className="flex-1 py-2 overflow-y-auto overflow-x-hidden">
           <ul className="space-y-0.5 px-2">
             {navItems.map(({ path, label, icon: Icon }) => {
-              const isActive = location.pathname === path || (path !== '/' && location.pathname.startsWith(path));
+              const isActive = location.pathname === path || (path !== '/overview' && location.pathname.startsWith(path));
               return (
                 <li key={path} className="relative sidebar-item">
                   <NavLink
@@ -116,7 +144,7 @@ export default function Sidebar({ expanded, setExpanded, isMobile, mobileOpen, s
                       flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
                       transition-all duration-150 relative group
                       ${isActive
-                        ? 'bg-emerald-pale text-emerald-primary'
+                        ? 'bg-emerald-pale text-emerald-primary font-semibold'
                         : 'text-text-secondary hover:bg-bg-secondary hover:text-text-main'
                       }
                     `}
@@ -148,7 +176,7 @@ export default function Sidebar({ expanded, setExpanded, isMobile, mobileOpen, s
           <div className="border-t border-border p-2 shrink-0">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-text-secondary hover:bg-bg-secondary transition-colors text-sm"
+              className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-text-secondary hover:bg-bg-secondary transition-colors text-sm cursor-pointer"
               aria-label={expanded ? 'Collapse sidebar' : 'Expand sidebar'}
             >
               {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
